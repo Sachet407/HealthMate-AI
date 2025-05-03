@@ -13,6 +13,7 @@ import {
   Facebook,
   Instagram,
 } from "lucide-react";
+import mapp from "../assets/map.png";
 
 const Contact = () => {
   const [formStatus, setFormStatus] = useState("idle");
@@ -440,7 +441,7 @@ const Contact = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 {/* Placeholder for map - replace with actual map component */}
                 <img
-                  src="/api/placeholder/800/600"
+                  src={mapp}
                   alt="Office Location Map"
                   className="w-full h-full object-cover"
                 />
