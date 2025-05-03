@@ -46,7 +46,7 @@ const App = () => {
             </div>
             <div className="hidden md:flex items-center space-x-10 text-lg">
               {["/", "/about", "/contact"].map((path, index) => {
-                const names = ["Home", "About", "Profile", "Contact"];
+                const names = ["Home", "About",  "Contact"];
                 return (
                   <NavLink
                     key={path}
