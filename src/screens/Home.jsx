@@ -149,7 +149,7 @@ const Home = () => {
               variants={itemVariant}
               className="relative inline-block mb-4"
             >
-              <span className="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-1.5 rounded-full">
+              <span className="bg-blue-100 text-blue-800 text-xl font-medium px-4 py-1.5 rounded-full">
                 Next Generation Healthcare
               </span>
               <motion.span

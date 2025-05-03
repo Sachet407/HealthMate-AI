@@ -121,11 +121,9 @@ const Contact = () => {
     <div className="min-h-[calc(100vh-7rem)]  pb-20">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute top-20 right-20 -z-10 h-64 w-64 rounded-full opacity-20 bg-blue-300 blur-3xl" />
-        <div className="absolute bottom-10 left-10 -z-10 h-64 w-64 rounded-full opacity-20 bg-purple-300 blur-3xl" />
+   
 
-        <div className="max-w-6xl mx-auto px-4 md:px-10 pt-20 pb-16">
+        <div className="max-w-6xl mx-auto px-4 md:px-10 pt-2 pb-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,7 +131,7 @@ const Contact = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <motion.span
-              className="inline-block px-4 py-1.5 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6"
+              className="inline-block px-4 py-1.5 bg-blue-100 text-blue-800 rounded-full text-xl font-medium mb-6"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
