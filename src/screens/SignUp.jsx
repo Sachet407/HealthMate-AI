@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Stethoscope, Shield, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const roles = [
   {
@@ -232,9 +233,9 @@ const SignUp = () => {
               className="text-center text-sm text-slate-600 mt-6"
             >
               Already have an account?{" "}
-              <a href="/login" className="text-blue-600 hover:underline">
+              <Link to="/login" className="text-blue-600 hover:underline">
                 Log in
-              </a>
+              </Link>
             </motion.p>
           </div>
         )}

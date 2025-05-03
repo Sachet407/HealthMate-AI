@@ -8,6 +8,7 @@ import About from "./screens/About.jsx";
 import Profile from "./screens/Profile.jsx";
 import SignUp from "./screens/SignUp.jsx";
 import Contact from "./screens/Contact.jsx";
+import Login from "./screens/Login.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="contact" element={<Contact />} />
           <Route path="profile" element={<Profile />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="login" element={<Login />} />
         </Route>
       </Routes>
     </Router>
