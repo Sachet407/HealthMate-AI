@@ -9,7 +9,8 @@ const App = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const darkMode = useSelector((state) => state.theme.darkMode);
-  const userRole = useSelector((state) => state.auth.role);
+
+  const userRole = "Patient";
 
   const toggleDarkMode = () => {
     dispatch(toggleTheme());
