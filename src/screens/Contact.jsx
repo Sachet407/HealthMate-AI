@@ -14,8 +14,10 @@ import {
   Instagram,
 } from "lucide-react";
 import mapp from "../assets/map.png";
+import { useSelector } from "react-redux";
 
 const Contact = () => {
+  const darkMode = useSelector((state) => state.theme.darkMode);
   const [formStatus, setFormStatus] = useState("idle");
   const [formData, setFormData] = useState({
     name: "",
@@ -141,7 +143,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-7rem)] pb-20">
+    <div
+      className={`min-h-[calc(100vh-7rem)] pb-20`}
+    >
       <div className="max-w-6xl mx-auto px-4 md:px-10 pt-2 pb-16">
         <motion.div
           className="text-center max-w-3xl mx-auto"
@@ -150,7 +154,11 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
         >
           <motion.span
-            className="inline-block px-4 py-1.5 bg-blue-100 text-blue-800 rounded-full text-xl font-medium mb-6"
+            className={`inline-block px-4 py-1.5 ${
+              darkMode
+                ? "bg-blue-900 text-blue-200"
+                : "bg-blue-100 text-blue-800"
+            } rounded-full text-xl font-medium mb-6`}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
@@ -158,7 +166,7 @@ const Contact = () => {
             Get in Touch
           </motion.span>
           <motion.h1
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-blue-800 via-blue-600 to-indigo-700 bg-clip-text text-transparent"
+            className={`text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-blue-800 via-blue-600 to-indigo-700 bg-clip-text text-transparent`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -166,7 +174,9 @@ const Contact = () => {
             We'd Love to Hear From You
           </motion.h1>
           <motion.p
-            className="text-lg text-slate-600 leading-relaxed"
+            className={`text-lg leading-relaxed ${
+              darkMode ? "text-slate-300" : "text-slate-600"
+            }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -189,7 +199,9 @@ const Contact = () => {
             <motion.a
               href={item.link}
               key={index}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              className={`${
+                darkMode ? "bg-slate-800" : "bg-white"
+              } rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300`}
               variants={variants.fadeInUp}
               whileHover={{ y: -5 }}
             >
@@ -199,11 +211,20 @@ const Contact = () => {
                 >
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-slate-800 mb-2">
+                <h3
+                  className={`text-xl font-semibold mb-2 ${
+                    darkMode ? "text-slate-100" : "text-slate-800"
+                  }`}
+                >
                   {item.title}
                 </h3>
-                registrar
-                <p className="text-slate-500 mb-6">{item.info}</p>
+                <p
+                  className={`${
+                    darkMode ? "text-slate-400" : "text-slate-500"
+                  } mb-6`}
+                >
+                  {item.info}
+                </p>
                 <div className="flex items-center text-blue-600 font-medium">
                   <span>{item.action}</span>
                   <motion.span
@@ -223,7 +244,9 @@ const Contact = () => {
             <motion.a
               href={item.link}
               key={index}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+              className={`${
+                darkMode ? "bg-slate-800" : "bg-white"
+              } rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300`}
               variants={variants.fadeInUp}
               whileHover={{ y: -5 }}
             >
@@ -234,10 +257,20 @@ const Contact = () => {
                   {item.icon}
                 </div>
                 <div className="ml-6">
-                  <h3 className="text-xl font-semibold text-slate-800 mb-1">
+                  <h3
+                    className={`text-xl font-semibold mb-1 ${
+                      darkMode ? "text-slate-100" : "text-slate-800"
+                    }`}
+                  >
                     {item.title}
                   </h3>
-                  <p className="text-slate-500 mb-2">{item.info}</p>
+                  <p
+                    className={`${
+                      darkMode ? "text-slate-400" : "text-slate-500"
+                    } mb-2`}
+                  >
+                    {item.info}
+                  </p>
                   <div className="flex items-center text-blue-600 font-medium">
                     <span>{item.action}</span>
                     <motion.span
@@ -256,7 +289,11 @@ const Contact = () => {
       </motion.div>
 
       <div className="max-w-6xl mx-auto px-4 md:px-10">
-        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div
+          className={`${
+            darkMode ? "bg-slate-800" : "bg-white"
+          } rounded-3xl shadow-xl overflow-hidden`}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <motion.div
               className="p-8 md:p-12"
@@ -265,7 +302,11 @@ const Contact = () => {
               viewport={{ once: true }}
               variants={variants.form}
             >
-              <h2 className="text-2xl font-bold text-slate-800 mb-6">
+              <h2
+                className={`text-2xl font-bold mb-6 ${
+                  darkMode ? "text-slate-100" : "text-slate-800"
+                }`}
+              >
                 Send Us a Message
               </h2>
               <AnimatePresence>
@@ -280,7 +321,9 @@ const Contact = () => {
                     <div key={field}>
                       <label
                         htmlFor={field}
-                        className="block text-sm font-medium text-slate-700 mb-1"
+                        className={`block text-sm font-medium mb-1 ${
+                          darkMode ? "text-slate-300" : "text-slate-700"
+                        }`}
                       >
                         {field.charAt(0).toUpperCase() + field.slice(1)}
                         {field === "email" && " Address"}
@@ -292,7 +335,11 @@ const Contact = () => {
                         name={field}
                         value={formData[field]}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                        className={`w-full px-4 py-3 rounded-lg border ${
+                          darkMode
+                            ? "border-slate-600 bg-slate-900 text-slate-100 placeholder:text-slate-400 focus:ring-blue-700"
+                            : "border-slate-300 focus:ring-blue-500"
+                        } focus:ring-2 focus:border-transparent outline-none`}
                         placeholder={
                           field === "name"
                             ? "John Doe"
@@ -307,7 +354,9 @@ const Contact = () => {
                   <div>
                     <label
                       htmlFor="message"
-                      className="block text-sm font-medium text-slate-700 mb-1"
+                      className={`block text-sm font-medium mb-1 ${
+                        darkMode ? "text-slate-300" : "text-slate-700"
+                      }`}
                     >
                       Your Message
                     </label>
@@ -318,7 +367,11 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        darkMode
+                          ? "border-slate-600 bg-slate-900 text-slate-100 placeholder:text-slate-400 focus:ring-blue-700"
+                          : "border-slate-300 focus:ring-blue-500"
+                      } focus:ring-2 focus:border-transparent outline-none`}
                       placeholder="Please describe your question or concern..."
                       required
                     />
@@ -327,7 +380,9 @@ const Contact = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    disabled={formStatus === "submitting" || formStatus === "success"}
+                    disabled={
+                      formStatus === "submitting" || formStatus === "success"
+                    }
                     className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg font-medium text-white ${
                       formStatus === "success"
                         ? "bg-green-500"
@@ -346,7 +401,11 @@ const Contact = () => {
                         <motion.div
                           className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                           animate={{ rotate: 360 }}
-                          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 1,
+                            ease: "linear",
+                          }}
                         />
                       </>
                     )}
@@ -360,7 +419,11 @@ const Contact = () => {
                 </motion.form>
               </AnimatePresence>
               <div className="mt-10">
-                <p className="text-sm text-slate-500 mb-4">
+                <p
+                  className={`text-sm mb-4 ${
+                    darkMode ? "text-slate-400" : "text-slate-500"
+                  }`}
+                >
                   Or connect with us on social media:
                 </p>
                 <div className="flex gap-4">
@@ -379,7 +442,9 @@ const Contact = () => {
               </div>
             </motion.div>
             <motion.div
-              className="relative h-full min-h-[400px] bg-slate-100"
+              className={`relative h-full min-h-[400px] ${
+                darkMode ? "bg-slate-700" : "bg-slate-100"
+              }`}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -421,24 +486,39 @@ const Contact = () => {
         variants={variants.stagger}
       >
         <motion.div className="text-center mb-12" variants={variants.fadeInUp}>
-          <h2 className="text-3xl font-bold text-slate-800 mb-4">
+          <h2
+            className={`text-3xl font-bold mb-4 ${
+              darkMode ? "text-slate-100" : "text-slate-800"
+            }`}
+          >
             Frequently Asked Questions
           </h2>
-          <p className="text-slate-600">
-            Find quick answers to common questions about our platform and services
+          <p className={`${darkMode ? "text-slate-300" : "text-slate-600"}`}>
+            Find quick answers to common questions about our platform and
+            services
           </p>
         </motion.div>
         <div className="space-y-6">
           {faqs.map((item, index) => (
             <motion.div
               key={index}
-              className="bg-white p-6 rounded-xl shadow-md"
+              className={`${
+                darkMode ? "bg-slate-800" : "bg-white"
+              } p-6 rounded-xl shadow-md`}
               variants={variants.fadeInUp}
             >
-              <h3 className="text-lg font-semibold text-slate-800 mb-3">
+              <h3
+                className={`text-lg font-semibold mb-3 ${
+                  darkMode ? "text-slate-100" : "text-slate-800"
+                }`}
+              >
                 {item.question}
               </h3>
-              <p className="text-slate-600">{item.answer}</p>
+              <p
+                className={`${darkMode ? "text-slate-300" : "text-slate-600"}`}
+              >
+                {item.answer}
+              </p>
             </motion.div>
           ))}
         </div>

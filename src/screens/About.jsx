@@ -7,10 +7,10 @@ import collaboration3 from "../assets/collaboration3.jpg";
 import sachet from "../assets/sachet.jpg";
 import reeya from "../assets/reeya.jpg";
 import sanjog from "../assets/sanjog.jpg";
-
+import { useSelector} from "react-redux";
 const About = () => {
   const controls = useAnimation();
-
+  const darkMode = useSelector((state) => state.theme.darkMode);
   useEffect(() => {
     controls.start("visible");
   }, [controls]);
@@ -104,14 +104,11 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-[calc(100vh-7rem)]">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        {/* Background Decoration */}
-        {/* <div className="absolute top-0 right-0 -z-10 h-96 w-96 rounded-full opacity-20 bg-blue-300 blur-3xl" />
-        <div className="absolute -left-48 top-96 -z-10 h-96 w-96 rounded-full opacity-10 bg-indigo-400 blur-3xl" /> */}
-<div className="max-w-7xl mx-auto px-4 md:px-10 pt-3 pb-20 md:pt-16 md:pb-24 mb-6">
-
+    <div
+      className="min-h-[calc(100vh-7rem)] transition-colors duration-300"
+    >
+      <div className={`relative overflow-hidden`}>
+        <div className="max-w-7xl mx-auto px-4 md:px-10 pt-3 pb-20 md:pt-16 md:pb-24 mb-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,7 +116,9 @@ const About = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <motion.span
-              className="inline-block px-4 py-1.5 bg-blue-100 text-blue-800 rounded-full text-xl font-medium mb-6"
+              className={`inline-block px-4 py-1.5 rounded-full text-xl font-medium mb-6 ${
+                darkMode ? "bg-slate-700 text-blue-200" : "bg-blue-100 text-blue-800"
+              }`}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -133,24 +132,23 @@ const About = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-             <h1 className="text-4xl font-bold leading-normal md:text-6xl">
-  Transforming Healthcare Through AI
-</h1>
+              <span className="text-4xl font-bold leading-normal md:text-6xl">
+                Transforming Healthcare Through AI
+              </span>
             </motion.h1>
 
             <motion.p
-              className="text-lg text-slate-700 leading-relaxed mb-8 mt-5"
+              className={`text-lg leading-relaxed mb-8 mt-5 ${
+                darkMode ? "text-slate-200" : "text-slate-700"
+              }`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              We're on a mission to make quality healthcare accessible,
-              affordable, and personalized through the power of artificial
-              intelligence and human expertise.
+              We're on a mission to make quality healthcare accessible, affordable, and personalized through the power of artificial intelligence and human expertise.
             </motion.p>
           </motion.div>
 
-          {/* Hero Image - Maintaining original height */}
           <motion.div
             className="mt-16 relative"
             initial={{ opacity: 0, y: 40 }}
@@ -204,9 +202,12 @@ const About = () => {
         </div>
       </div>
 
-      {/* Improved Our Story Section */}
       <motion.div
-        className="py-20 px-4 md:px-10 bg-gradient-to-br from-blue-50 to-indigo-50"
+        className={`py-20 px-4 md:px-10 ${
+          darkMode
+            ? "bg-gradient-to-br from-slate-800 via-slate-700 to-slate-800"
+            : "bg-gradient-to-br from-blue-50 to-indigo-50"
+        }`}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -214,18 +215,15 @@ const About = () => {
       >
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-16" variants={fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${darkMode ? "text-white" : "text-slate-800"}`}>
               Our Story
             </h2>
-            <div className="w-24 h-1 bg-blue-500 mx-auto mb-6"></div>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-              Founded in 2022, our journey began when three experts from
-              different healthcare fields joined forces with a shared vision:
-              using AI to solve the most pressing healthcare challenges.
+            <div className={`w-24 h-1 mx-auto mb-6 ${darkMode ? "bg-blue-400" : "bg-blue-500"}`}></div>
+            <p className={`text-lg max-w-3xl mx-auto ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
+              Founded in 2022, our journey began when three experts from different healthcare fields joined forces with a shared vision: using AI to solve the most pressing healthcare challenges.
             </p>
           </motion.div>
 
-          {/* Redesigned Founder Cards */}
           <motion.div
             className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12"
             variants={staggerContainer}
@@ -233,7 +231,9 @@ const About = () => {
             {founders.map((founder, index) => (
               <motion.div
                 key={index}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-blue-100"
+                className={`rounded-2xl overflow-hidden shadow-lg border ${
+                  darkMode ? "bg-slate-800 border-slate-600" : "bg-white border-blue-100"
+                }`}
                 variants={fadeInUp}
                 whileHover={{
                   y: -8,
@@ -243,7 +243,7 @@ const About = () => {
               >
                 <div className="relative group">
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300"
+                    className={`absolute inset-0 bg-gradient-to-t from-blue-900 via-blue-900/50 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300`}
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 0.7 }}
                   />
@@ -278,14 +278,16 @@ const About = () => {
                     </motion.div>
                   </div>
                   <motion.p
-                    className="text-slate-700 italic mb-6 leading-relaxed font-light text-lg"
+                    className={`italic mb-6 leading-relaxed font-light text-lg ${
+                      darkMode ? "text-slate-200" : "text-slate-700"
+                    }`}
                     whileHover={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}
                   >
                     {founder.quote}
                   </motion.p>
-                  <div className="h-px w-1/4 bg-blue-200 mb-6 mt-8"></div>
-                  <p className="text-sm text-slate-500 font-medium">
+                  <div className={`h-px w-1/4 mb-6 mt-8 ${darkMode ? "bg-blue-700" : "bg-blue-200"}`}></div>
+                  <p className={`text-sm font-medium ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
                     {founder.background}
                   </p>
                 </div>
@@ -295,9 +297,12 @@ const About = () => {
         </div>
       </motion.div>
 
-      {/* Our Platform Section */}
       <motion.div
-        className="py-20 px-4 md:px-10 bg-gradient-to-br from-blue-900 to-indigo-900 text-white"
+        className={`py-20 px-4 md:px-10 ${
+          darkMode
+            ? "bg-gradient-to-br from-slate-900 to-slate-800 text-white"
+            : "bg-gradient-to-br from-blue-900 to-indigo-900 text-white"
+        }`}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -305,9 +310,7 @@ const About = () => {
       >
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-16" variants={fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Our Platform
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Platform</h2>
             <div className="w-24 h-1 bg-blue-400 mx-auto mb-6"></div>
             <p className="text-lg text-blue-100 max-w-3xl mx-auto">
               Combining cutting-edge AI technology with medical expertise to
@@ -390,9 +393,8 @@ const About = () => {
         </div>
       </motion.div>
 
-      {/* Our Values Section */}
       <motion.div
-        className="py-20 px-4 md:px-10"
+        className={`py-20 px-4 md:px-10`}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -400,11 +402,11 @@ const About = () => {
       >
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-16" variants={fadeInUp}>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${darkMode ? "text-white" : "text-slate-800"}`}>
               Our Values
             </h2>
-            <div className="w-24 h-1 bg-blue-500 mx-auto mb-6"></div>
-            <p className="text-lg text-slate-600 max-w-3xl mx-auto">
+            <div className={`w-24 h-1 mx-auto mb-6 ${darkMode ? "bg-blue-400" : "bg-blue-500"}`}></div>
+            <p className={`text-lg max-w-3xl mx-auto ${darkMode ? "text-slate-300" : "text-slate-600"}`}>
               These core principles guide everything we do, from building our
               technology to interacting with patients and healthcare providers.
             </p>
@@ -417,24 +419,27 @@ const About = () => {
             {values.map((value, index) => (
               <motion.div
                 key={index}
-                className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+                className={`p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 ${
+                  darkMode
+                    ? "bg-slate-800 hover:bg-slate-700"
+                    : "bg-white hover:bg-gray-50"
+                }`}
                 variants={fadeInUp}
                 whileHover={{ y: -5 }}
               >
                 <div className="bg-blue-50 rounded-full w-12 h-12 flex items-center justify-center mb-6">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-slate-800 mb-3">
+                <h3 className={`text-xl font-semibold mb-3 ${darkMode ? "text-white" : "text-slate-800"}`}>
                   {value.title}
                 </h3>
-                <p className="text-slate-600">{value.description}</p>
+                <p className={`${darkMode ? "text-slate-200" : "text-slate-600"}`}>{value.description}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Join Us Section */}
       <motion.div
         className="py-20 px-4 md:px-10 bg-gradient-to-r from-blue-500 to-indigo-600"
         initial={{ opacity: 0 }}
@@ -460,9 +465,7 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Whether you're a patient seeking better care or a healthcare
-            provider looking to expand your reach, our platform is designed to
-            serve you.
+            Whether you're a patient seeking better care or a healthcare provider looking to expand your reach, our platform is designed to serve you.
           </motion.p>
 
           <motion.div
@@ -478,14 +481,6 @@ const About = () => {
               className="px-8 py-4 bg-white text-blue-700 rounded-xl text-lg font-medium shadow-xl hover:shadow-2xl transition-all duration-300"
             >
               Start Your Journey
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-xl text-lg font-medium transition-all duration-300"
-            >
-              Contact Us
             </motion.button>
           </motion.div>
         </div>

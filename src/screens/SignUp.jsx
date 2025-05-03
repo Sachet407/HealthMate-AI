@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { User, Stethoscope, Shield, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const roles = [
   {
     type: "Patient",
@@ -24,6 +24,7 @@ const roles = [
 
 const SignUp = () => {
   const [userType, setUserType] = useState(null);
+  const darkMode = useSelector((state) => state.theme.darkMode);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -63,9 +64,10 @@ const SignUp = () => {
     visible: { scale: 1, opacity: 1 },
     hover: { scale: 1.05, boxShadow: "0 10px 25px rgba(0,0,0,0.15)" },
   };
-
   return (
-    <div className="min-h-[calc(100vh-7rem)] w-full flex items-center justify-center px-4 py-8">
+    <div
+      className={`min-h-[calc(100vh-7rem)] w-full flex items-center justify-center px-4 py-8`}
+    >
       <motion.div
         variants={container}
         initial="hidden"
@@ -87,13 +89,17 @@ const SignUp = () => {
           <div className="text-center">
             <motion.h1
               variants={item}
-              className="text-4xl md:text-5xl font-bold text-slate-800 mb-6"
+              className={`text-4xl md:text-5xl font-bold mb-6 ${
+                darkMode ? "text-white" : "text-slate-800"
+              }`}
             >
               Choose Your Role
             </motion.h1>
             <motion.p
               variants={item}
-              className="text-lg text-slate-600 mb-12 max-w-2xl mx-auto"
+              className={`text-lg mb-12 max-w-2xl mx-auto ${
+                darkMode ? "text-slate-300" : "text-slate-600"
+              }`}
             >
               Select your role to get started with your personalized healthcare
               journey.
@@ -107,14 +113,20 @@ const SignUp = () => {
                   initial="hidden"
                   animate="visible"
                   onClick={() => handleUserTypeSelect(role.type)}
-                  className="bg-white p-6 rounded-2xl border border-gray-100 cursor-pointer shadow-md hover:shadow-xl transition"
+                  className={`${
+                    darkMode
+                      ? "bg-gray-800 border-gray-700 shadow-gray-700 text-white"
+                      : "bg-white border-gray-100 text-slate-800"
+                  } p-6 rounded-2xl border cursor-pointer shadow-md hover:shadow-xl transition`}
                 >
                   <div className="flex flex-col items-center">
                     <div className="mb-4">{role.icon}</div>
-                    <h3 className="text-xl font-semibold text-slate-800 mb-2">
-                      {role.type}
-                    </h3>
-                    <p className="text-slate-600 text-center text-sm">
+                    <h3 className="text-xl font-semibold mb-2">{role.type}</h3>
+                    <p
+                      className={`text-center text-sm ${
+                        darkMode ? "text-slate-300" : "text-slate-600"
+                      }`}
+                    >
                       {role.description}
                     </p>
                   </div>
@@ -123,7 +135,11 @@ const SignUp = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl max-w-lg mx-auto">
+          <div
+            className={`${
+              darkMode ? "bg-gray-800 text-white" : "bg-white text-slate-800"
+            } p-8 md:p-12 rounded-3xl shadow-2xl max-w-lg mx-auto`}
+          >
             <motion.div
               variants={item}
               className="mb-6 flex items-center gap-2 text-sm text-blue-600 hover:underline cursor-pointer w-fit"
@@ -133,7 +149,7 @@ const SignUp = () => {
             </motion.div>
             <motion.h2
               variants={item}
-              className="text-3xl font-bold text-slate-800 mb-6 text-center"
+              className="text-3xl font-bold mb-6 text-center"
             >
               Sign Up as {userType}
             </motion.h2>
@@ -148,7 +164,11 @@ const SignUp = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className={`w-full px-4 py-3 rounded-lg border ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-slate-300 focus:ring-blue-500"
+                      : "border-gray-200 focus:ring-blue-500"
+                  } focus:ring-2 outline-none`}
                   placeholder="Full Name"
                   required
                 />
@@ -159,7 +179,11 @@ const SignUp = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className={`w-full px-4 py-3 rounded-lg border ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-slate-300 focus:ring-blue-500"
+                      : "border-gray-200 focus:ring-blue-500"
+                  } focus:ring-2 outline-none`}
                   placeholder="Email"
                   required
                 />
@@ -170,7 +194,11 @@ const SignUp = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none"
+                  className={`w-full px-4 py-3 rounded-lg border ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-slate-300 focus:ring-blue-500"
+                      : "border-gray-200 focus:ring-blue-500"
+                  } focus:ring-2 outline-none`}
                   placeholder="Password"
                   required
                 />
@@ -184,7 +212,11 @@ const SignUp = () => {
                       name="specialty"
                       value={formData.specialty}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none"
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        darkMode
+                          ? "bg-gray-700 border-gray-600 text-white placeholder-slate-300 focus:ring-blue-500"
+                          : "border-gray-200 focus:ring-blue-500"
+                      } focus:ring-2 outline-none`}
                       placeholder="Specialty"
                       required
                     />
@@ -195,7 +227,11 @@ const SignUp = () => {
                       name="license"
                       value={formData.license}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none"
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        darkMode
+                          ? "bg-gray-700 border-gray-600 text-white placeholder-slate-300 focus:ring-blue-500"
+                          : "border-gray-200 focus:ring-blue-500"
+                      } focus:ring-2 outline-none`}
                       placeholder="License Number"
                       required
                     />
@@ -210,14 +246,18 @@ const SignUp = () => {
                     name="department"
                     value={formData.department}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 outline-none"
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      darkMode
+                        ? "bg-gray-700 border-gray-600 text-white placeholder-slate-300 focus:ring-blue-500"
+                        : "border-gray-200 focus:ring-blue-500"
+                    } focus:ring-2 outline-none`}
                     placeholder="Department"
                     required
                   />
                 </motion.div>
               )}
 
-              <motion.div variants={item}>
+              <motion.div variants={item} onClick={handleSubmit}>
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.05 }}
@@ -230,7 +270,9 @@ const SignUp = () => {
             </motion.form>
             <motion.p
               variants={item}
-              className="text-center text-sm text-slate-600 mt-6"
+              className={`text-center text-sm mt-6 ${
+                darkMode ? "text-slate-300" : "text-slate-600"
+              }`}
             >
               Already have an account?{" "}
               <Link to="/login" className="text-blue-600 hover:underline">
