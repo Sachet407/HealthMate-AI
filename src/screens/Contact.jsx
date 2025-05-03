@@ -118,7 +118,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 pb-20">
+    <div className="min-h-[calc(100vh-7rem)]  pb-20">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         {/* Background Elements */}
