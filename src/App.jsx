@@ -1,17 +1,37 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Moon, Sun } from "lucide-react";
 import { toggleTheme } from "../src/store/slices/themeSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const darkMode = useSelector((state) => state.theme.darkMode);
+  const userRole = useSelector((state) => state.auth.role);
 
   const toggleDarkMode = () => {
     dispatch(toggleTheme());
   };
+  useEffect(() => {
+    if (isLoggedIn) {
+      // Redirect based on role
+      switch (userRole) {
+        case "Admin":
+          navigate("/admin");
+          break;
+        case "Doctor":
+          navigate("/doctors");
+          break;
+        case "Patient":
+          navigate("/patients");
+          break;
+        default:
+          navigate("/");
+      }
+    }
+  }, [isLoggedIn, userRole, navigate]);
 
   return (
     <div
@@ -21,7 +41,7 @@ const App = () => {
           : "bg-gradient-to-br from-[#f1f5ff] via-[#f9fbff] to-[#ffffff] text-slate-800"
       } font-[Inter] transition-colors duration-300`}
     >
-      {!isLoggedIn && (
+      {!isLoggedIn ? (
         <>
           <nav
             className={`h-20 flex items-center justify-between px-10 md:px-16 ${
@@ -46,7 +66,7 @@ const App = () => {
             </div>
             <div className="hidden md:flex items-center space-x-10 text-lg">
               {["/", "/about", "/contact"].map((path, index) => {
-                const names = ["Home", "About",  "Contact"];
+                const names = ["Home", "About", "Contact"];
                 return (
                   <NavLink
                     key={path}
@@ -99,6 +119,12 @@ const App = () => {
             <div className="">
               <Outlet />
             </div>
+          </main>
+        </>
+      ) : (
+        <>
+          <main className="pt-28 px-6 md:px-20 transition-all duration-300">
+            <Outlet />
           </main>
         </>
       )}

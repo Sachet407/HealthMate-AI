@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { User, Stethoscope, Shield, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { login } from "../store/slices/authSlice";
+import { useEffect } from "react";
 const roles = [
   {
     type: "Patient",
@@ -24,7 +27,11 @@ const roles = [
 
 const SignUp = () => {
   const [userType, setUserType] = useState(null);
+
+  const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.theme.darkMode);
+  const loginInfo = useSelector((state) => state.auth.isLoggedIn);
+  const userRole = useSelector((state) => state.auth.role);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,7 +40,13 @@ const SignUp = () => {
     license: "",
     department: "",
   });
-
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  useEffect(() => {
+    if (isLoggedIn && userRole) {
+      console.log("✅ Logged in as:", userRole);
+      // Navigate or show other content
+    }
+  }, [isLoggedIn, userRole]);
   const handleUserTypeSelect = (type) => setUserType(type);
 
   const handleInputChange = (e) => {
@@ -44,6 +57,7 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", { userType, ...formData });
+    dispatch(login({ role: userType }));
   };
 
   const container = {

@@ -11,6 +11,12 @@ import Contact from "./screens/Contact.jsx";
 import Login from "./screens/Login.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import { useSelector } from "react-redux";
+import Patient from "./screens/Patients.jsx";
+import Admin from "./screens/Admin.jsx";
+import Doctor from "./screens/Doctors.jsx";
+
+
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <StrictMode>
@@ -23,6 +29,9 @@ createRoot(document.getElementById("root")).render(
             <Route path="profile" element={<Profile />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="login" element={<Login />} />
+            <Route path="patients" element={<Patient />} />
+            <Route path="doctors" element={<Doctor />} />
+            <Route path="admin" element={<Admin />} />
           </Route>
         </Routes>
       </Router>
