@@ -12,7 +12,7 @@ const App = () => {
           <span className="text-slate-500">AI</span>
         </div>
         <div className="hidden md:flex items-center space-x-10 text-lg">
-          {["/", "/about", "/profile", "/contact"].map((path, index) => {
+          {["/", "/about",, "/contact"].map((path, index) => {
             const names = ["Home", "About", "Profile", "Contact"];
             return (
               <NavLink
