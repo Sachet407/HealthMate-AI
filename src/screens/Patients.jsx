@@ -11,23 +11,21 @@ import {
   Moon,
   Sun,
 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { logout } from "../store/slices/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../store/slices/themeSlice";
 import { useNavigate } from "react-router-dom";
+
 const Patients = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.theme.darkMode);
   const navigate = useNavigate();
-  const toggleDarkMode = () => {
-    dispatch(toggleTheme());
-  };
 
   const handleLogout = () => {
-    console.log("User logged out");
     dispatch(logout());
-    navigate("/"); // or login page
+    navigate("/");
   };
 
   const patientInfo = {
@@ -41,14 +39,26 @@ const Patients = () => {
       "https://images.unsplash.com/photo-1560087637-bf797bc7796a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   };
 
+  const [profileImage, setProfileImage] = useState(patientInfo.image);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setProfileImage(imageUrl);
+    }
+  };
+
+  const toggleDarkMode = () => {
+    dispatch(toggleTheme());
+  };
+
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
-    console.log(`Selected option: ${option}`);
   };
 
   return (
     <div className={`h-screen w-full`}>
-      {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -84,7 +94,6 @@ const Patients = () => {
                 ? "bg-slate-700 hover:bg-slate-600"
                 : "bg-slate-100 hover:bg-slate-200"
             } transition-colors duration-200`}
-            aria-label="Toggle dark mode"
           >
             {darkMode ? (
               <Sun size={18} className="text-blue-300" />
@@ -112,32 +121,49 @@ const Patients = () => {
         </div>
       </motion.header>
 
-      <div className=" pb-16 px-6 max-w-6xl mx-auto">
+      <div className="pb-16 px-6 max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className={`rounded-2xl shadow-xl overflow-hidden ${
+          className={`rounded-2xl shadow-xl overflow-hidden mt-15 ${
             darkMode
               ? "bg-slate-800 shadow-slate-900/50"
               : "bg-white shadow-blue-200/50"
           }`}
         >
           <div className="h-48 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 relative">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-              className={`absolute -bottom-16 left-8 rounded-full border-4 ${
-                darkMode ? "border-slate-800" : "border-white"
-              } shadow-lg overflow-hidden`}
-            >
-              <img
-                src={patientInfo.image}
-                alt={patientInfo.name}
-                className="w-32 h-32 object-cover"
-              />
-            </motion.div>
+          <motion.div
+  initial={{ scale: 0.8, opacity: 0 }}
+  animate={{ scale: 1, opacity: 1 }}
+  transition={{ delay: 0.3, duration: 0.4 }}
+  className={`absolute -bottom-16 left-8 rounded-full w-32 h-32`}
+>
+  <div className="relative w-32 h-32">
+    <div
+      className={`w-32 h-32 rounded-full border-4 ${
+        darkMode ? "border-slate-800" : "border-white"
+      } shadow-lg overflow-hidden`}
+    >
+      <img
+        src={profileImage}
+        alt={patientInfo.name}
+        className="w-full h-full object-cover"
+      />
+    </div>
+    
+  
+    <label className="absolute bottom-0 right-0 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full cursor-pointer shadow transition transform translate-x-1 translate-y-1">
+      <Pencil size={16} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="hidden"
+      />
+    </label>
+  </div>
+</motion.div>
           </div>
 
           <div className="pt-20 pb-10 px-8">
@@ -249,119 +275,79 @@ const Patients = () => {
                 What would you like to do?
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <motion.div
-                  whileHover={{ scale: 1.03, y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleOptionSelect("consultation-history")}
-                  className={`cursor-pointer rounded-xl p-8 transition-all duration-300 ${
-                    selectedOption === "consultation-history"
-                      ? darkMode
-                        ? "border-2 border-blue-500 bg-slate-700/50"
-                        : "border-2 border-blue-500 bg-blue-50"
-                      : darkMode
-                      ? "bg-slate-700/30 hover:bg-slate-700/60 shadow-lg shadow-slate-900/30"
-                      : "bg-white hover:bg-blue-50/50 shadow-lg shadow-blue-100/50"
-                  }`}
-                >
-                  <div className="flex items-start">
-                    <div
-                      className={`mr-5 p-4 rounded-xl ${
-                        darkMode ? "bg-slate-800" : "bg-blue-100"
-                      }`}
-                    >
-                      <FileText
-                        className={`h-8 w-8 ${
-                          darkMode ? "text-blue-400" : "text-blue-600"
+                {[
+                  {
+                    key: "consultation-history",
+                    title: "View Consultation History",
+                    description:
+                      "Access past medical records, diagnoses, and treatment plans from previous visits.",
+                    icon: <FileText className="h-8 w-8" />,
+                  },
+                  {
+                    key: "check-disease",
+                    title: "Check Disease via Symptoms",
+                    description:
+                      "Analyze symptoms and get AI-powered diagnostic insights and health recommendations.",
+                    icon: <Activity className="h-8 w-8" />,
+                  },
+                ].map((option) => (
+                  <motion.div
+                    key={option.key}
+                    whileHover={{ scale: 1.03, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleOptionSelect(option.key)}
+                    className={`cursor-pointer rounded-xl p-8 transition-all duration-300 ${
+                      selectedOption === option.key
+                        ? darkMode
+                          ? "border-2 border-blue-500 bg-slate-700/50"
+                          : "border-2 border-blue-500 bg-blue-50"
+                        : darkMode
+                        ? "bg-slate-700/30 hover:bg-slate-700/60 shadow-lg shadow-slate-900/30"
+                        : "bg-white hover:bg-blue-50/50 shadow-lg shadow-blue-100/50"
+                    }`}
+                  >
+                    <div className="flex items-start">
+                      <div
+                        className={`mr-5 p-4 rounded-xl ${
+                          darkMode ? "bg-slate-800" : "bg-blue-100"
+                        }`}
+                      >
+                        {React.cloneElement(option.icon, {
+                          className: `${
+                            darkMode ? "text-blue-400" : "text-blue-600"
+                          }`,
+                        })}
+                      </div>
+                      <div className="flex-1">
+                        <h3
+                          className={`font-semibold text-xl mb-3 ${
+                            darkMode ? "text-slate-100" : "text-slate-800"
+                          }`}
+                        >
+                          {option.title}
+                        </h3>
+                        <p
+                          className={`${
+                            darkMode ? "text-slate-300" : "text-slate-600"
+                          }`}
+                        >
+                          {option.description}
+                        </p>
+                      </div>
+                      <ChevronRight
+                        className={`ml-2 h-6 w-6 transition-all duration-300 ${
+                          selectedOption === option.key
+                            ? darkMode
+                              ? "text-blue-400"
+                              : "text-blue-500"
+                            : darkMode
+                            ? "text-slate-500"
+                            : "text-slate-400"
                         }`}
                       />
                     </div>
-                    <div className="flex-1">
-                      <h3
-                        className={`font-semibold text-xl mb-3 ${
-                          darkMode ? "text-slate-100" : "text-slate-800"
-                        }`}
-                      >
-                        View Consultation History
-                      </h3>
-                      <p
-                        className={`${
-                          darkMode ? "text-slate-300" : "text-slate-600"
-                        }`}
-                      >
-                        Access past medical records, diagnoses, and treatment
-                        plans from previous visits.
-                      </p>
-                    </div>
-                    <ChevronRight
-                      className={`ml-2 h-6 w-6 transition-all duration-300 ${
-                        selectedOption === "consultation-history"
-                          ? darkMode
-                            ? "text-blue-400"
-                            : "text-blue-500"
-                          : darkMode
-                          ? "text-slate-500"
-                          : "text-slate-400"
-                      }`}
-                    />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ scale: 1.03, y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleOptionSelect("check-disease")}
-                  className={`cursor-pointer rounded-xl p-8 transition-all duration-300 ${
-                    selectedOption === "check-disease"
-                      ? darkMode
-                        ? "border-2 border-blue-500 bg-slate-700/50"
-                        : "border-2 border-blue-500 bg-blue-50"
-                      : darkMode
-                      ? "bg-slate-700/30 hover:bg-slate-700/60 shadow-lg shadow-slate-900/30"
-                      : "bg-white hover:bg-blue-50/50 shadow-lg shadow-blue-100/50"
-                  }`}
-                >
-                  <div className="flex items-start">
-                    <div
-                      className={`mr-5 p-4 rounded-xl ${
-                        darkMode ? "bg-slate-800" : "bg-blue-100"
-                      }`}
-                    >
-                      <Activity
-                        className={`h-8 w-8 ${
-                          darkMode ? "text-blue-400" : "text-blue-600"
-                        }`}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h3
-                        className={`font-semibold text-xl mb-3 ${
-                          darkMode ? "text-slate-100" : "text-slate-800"
-                        }`}
-                      >
-                        Check Disease via Symptoms
-                      </h3>
-                      <p
-                        className={`${
-                          darkMode ? "text-slate-300" : "text-slate-600"
-                        }`}
-                      >
-                        Analyze symptoms and get AI-powered diagnostic insights
-                        and health recommendations.
-                      </p>
-                    </div>
-                    <ChevronRight
-                      className={`ml-2 h-6 w-6 transition-all duration-300 ${
-                        selectedOption === "check-disease"
-                          ? darkMode
-                            ? "text-blue-400"
-                            : "text-blue-500"
-                          : darkMode
-                          ? "text-slate-500"
-                          : "text-slate-400"
-                      }`}
-                    />
-                  </div>
-                </motion.div>
+                  </motion.div>
+                ))}
               </div>
 
               {selectedOption && (
