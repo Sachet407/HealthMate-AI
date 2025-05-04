@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Moon, Sun } from "lucide-react";
@@ -9,15 +9,15 @@ const App = () => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const darkMode = useSelector((state) => state.theme.darkMode);
-
+  const hasRedirectedRef = useRef(false);
   const userRole = "Patient";
 
   const toggleDarkMode = () => {
     dispatch(toggleTheme());
   };
   useEffect(() => {
-    if (isLoggedIn) {
-      // Redirect based on role
+    if (isLoggedIn && !hasRedirectedRef.current) {
+      hasRedirectedRef.current = true;
       switch (userRole) {
         case "Admin":
           navigate("/admin");
